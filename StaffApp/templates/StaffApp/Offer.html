@@ -1,0 +1,123 @@
+{% extends 'StaffApp/BaseMenu.html'%}
+{% block Title%}Offer{% endblock %}
+
+{% block Link %}
+    <a href="/Supply" style="color: #f8f9fa;">Supply / </a>
+    <a href="/Supply/Offers" style="color: #d9dbdd;" >Offers / </a>
+    <a href="/Supply/Offers/{{Offer.id}}" class="text-muted" style="pointer-events: none;">{{Offer.id}} / </a>
+{% endblock %}
+
+{% block TitleCont %}Offer{% endblock %}
+
+{% block Contant %}
+
+    <ul class="list-group list-group-horizontal justify-content-center" style="margin: 0 40px;">
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">ID</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Game-Server</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Item</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Quant</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Price</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Name</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">status</li>
+    </ul>
+
+    <form method="POST" style="margin: 0 40px;">
+            {% csrf_token %}
+            {% if Offer.Status == 1 %}
+                <ul class="list-group list-group-horizontal justify-content-center ">
+                    <input type="hidden" name="OfferId" value="{{Offer.id}}">
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.id}}</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">Pending...
+                        {% if request.user.is_staff %}
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                </ul>
+            {% elif Offer.Status == 2 %}
+                <ul class="list-group list-group-horizontal justify-content-center ">
+                    <input type="hidden" name="OfferId" value="{{Offer.id}}">
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.id}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Complete
+                        {% if request.user.is_staff %}
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                </ul>
+            {% elif Offer.Status == 3 %}
+                <ul class="list-group list-group-horizontal justify-content-center ">
+                    <input type="hidden" name="OfferId" value="{{Offer.id}}">
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;"><a href="{{Offer.id}}">{{Offer.id}}</a></li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">Canceled
+                        {% if request.user.is_staff %}
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                </ul>
+            {% else %}
+                <ul class="list-group list-group-horizontal justify-content-center ">
+                    <input type="hidden" name="OfferId" value="{{Offer.id}}">
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.id}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Delivered
+                        {% if request.user.is_staff %}
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                </ul>
+             {% endif %}
+            <hr><p>Personal</p>
+            <p style="margin-left: 20px;"> Username : {{Offer.NameUser}}</p>
+            <p style="margin-left: 20px;"> PhoneNumber : {{info.phonenumber}}</p>
+            <hr><p>Account</p>
+            <p style="margin-left: 20px;"> Character name : {{Offer.ingamename}}</p>
+            <p style="margin-left: 20px;"> ID Discord : {{info.IDDiscord}}</p>
+            <p style="margin-left: 20px;"> Email : {{info.email}}</p>
+            <hr><p>Payment</p>
+            <p style="margin-left: 20px;"> Bank ID : {{info.bankId}}</p>
+            <p style="margin-left: 20px;">Name Owner Bank ID : {{info.bankIdOwner}}</p>
+            <p style="margin-left: 20px;"> Note : {{Offer.note}}</p>
+    </form>
+{% endblock %}

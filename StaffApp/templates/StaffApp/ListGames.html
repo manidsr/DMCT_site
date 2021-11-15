@@ -1,0 +1,29 @@
+{% extends 'StaffApp/BaseMenu.html'%}
+{% block Title%}List Games{% endblock %}
+
+{% block Link %}
+    <a href="/Supply" style="pointer-events: none;color: #d9dbdd;" class="text-muted">Supply / </a>
+{% endblock %}
+
+{% block TitleCont %}{{TitleContainer}}{% endblock %}
+
+{% block Contant %}
+    <div class="d-grid gap-2 col-4" style="margin: 0 33.35%;">
+        {% for Game in GameList %}
+            <a href="{{ request.get_full_path }}{{Game.id}}" type="button" class="btn btn-dark">{{Game.name}}{% if request.user.is_staff %} : {{Game.id}}{% endif %}</a>
+        {% endfor%}
+    </div>
+    
+    {% if request.user.is_staff %}
+        <div style="margin-top: 10px;">
+            <form method="POST" style="margin: 0 33.35%;">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <button class="btn btn-dark" type="submit" name="Delete" value="Delete">Delete</button>
+                    <input type="text" class="form-control" placeholder="ID or Name" style="text-align: center;" name="IName">
+                    <button class="btn btn-dark" type="submit" name="Add" value="Add">Add</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
