@@ -134,7 +134,7 @@ Offers
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Complete</li>
                 </ul>
-            {% else %}
+            {% elif Offer.Status == 3 %}
                 <ul class="list-group list-group-horizontal justify-content-center ">
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;"><a href="{{Offer.id}}">{{Offer.id}}</a></li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
@@ -142,7 +142,17 @@ Offers
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">Canceled</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">Complete</li>
+                </ul>
+            {% else %}
+                <ul class="list-group list-group-horizontal justify-content-center ">
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;"><a href="{{Offer.id}}">{{Offer.id}}</a></li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Delivered</li>
                 </ul>
             {% endif %}
         {% endfor%}
