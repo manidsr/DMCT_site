@@ -1,9 +1,12 @@
+from dhooks.client import Webhook
 from django.contrib.auth.decorators import login_required
 from django.http import response
 from .models import Game,Item,Server,OfferRequest
 from django.shortcuts import render,redirect
 from django.contrib.auth import logout
 from UserAuth.models import UserInfo
+
+Webhooklink = "Your weeb hook id"
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -106,6 +109,8 @@ def GetItems(response,IDGame,IDServer):
                         idgame=IDGame,idserver=IDServer,iditem=IDItem)
                         NewOffer.save()
                         response.user.offersrequest.add(NewOffer)
+                        #webhook discord
+                        SendMessageToDiscord("**New offer request**",f"User : {Name}\nItem : {ouritem}x {OfferQuant}\nCharacter name : {CName}\nDiscord : @{Discord}\nNote : {Note}")
                         #redirect for pervent resubmit on refresh
                         return redirect(f"/Supply/Offers/{NewOffer.id}")   
             #Add item to items list         
@@ -117,12 +122,16 @@ def GetItems(response,IDGame,IDServer):
                 #save
                 item = Server.item_set.create(name=name,price=PriceItem,offerLimit=OfferLimit)
                 item.save()
+                #webhook discord
+                SendMessageToDiscord("**Added an new item**",f"Name : {name}\nPrice Item : {PriceItem}$\nOffer limit : {OfferLimit}")
                 #redirect for pervent resubmit on refresh
                 return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"Select Your Items","gameName":ourGame,"Server":Server})
             #Delete item from list
             elif response.POST.get("Delete"):
                 #Get id form input
                 item = Server.item_set.get(id=response.POST.get("DeleteId"))
+                #webhook discord
+                SendMessageToDiscord("**Deleted an item**",f"item : {item.name}")
                 #delete
                 item.delete()
                 #redirect for pervent resubmit on refresh
@@ -131,6 +140,9 @@ def GetItems(response,IDGame,IDServer):
             elif response.POST.get("changeLimit"):
                 #get id and new offer limit
                 item = Server.item_set.get(id=response.POST.get("changeLimitId"))
+                #webhook discord
+                SendMessageToDiscord("**Changed offer limit an item**",f"item : {item.name}\nOld offer limit : {item.offerLimit}\nNew offer limit : {int(response.POST.get('newItemLimit'))}")
+                #get id and new offer limit
                 item.offerLimit = int(response.POST.get("newItemLimit"))
                 #save
                 item.save()
@@ -140,6 +152,8 @@ def GetItems(response,IDGame,IDServer):
             elif response.POST.get("changePrice"):
                 #Get id and new price from inputs
                 item = Server.item_set.get(id=response.POST.get("changePriceId"))
+                #webhook discord
+                SendMessageToDiscord("**Changed offer limit an item**",f"item : {item.name}\nOld price : {item.price}$\nNew price : {int(response.POST.get('newItemPrice'))}$")
                 item.price = int(response.POST.get("newItemPrice"))
                 #save
                 item.save()
@@ -163,6 +177,8 @@ def GetOffers(response):
                 offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                 offer.Status = 1
                 offer.save()
+                #webhook discord
+                SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                 #redirect for pervent resubmit on refresh
                 return redirect("/Supply/Offers")
             #Change Status to Complete
@@ -170,6 +186,8 @@ def GetOffers(response):
                 offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                 offer.Status = 2
                 offer.save()
+                #webhook discord
+                SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                 #redirect for pervent resubmit on refresh
                 return redirect("/Supply/Offers")
             #Change Status to Canceled
@@ -177,6 +195,8 @@ def GetOffers(response):
                 offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                 offer.Status = 3
                 offer.save()
+                #webhook discord
+                SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                 #redirect for pervent resubmit on refresh
                 return redirect("/Supply/Offers")
             #Change Status to Delivered
@@ -184,11 +204,13 @@ def GetOffers(response):
                 offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                 offer.Status = 4
                 #Changing offer limit after changing status
-                ourGame = Game.objects.get(id=offer.idgame)
-                Server = ourGame.server_set.get(id=offer.idserver)
-                Item = Server.item_set.get(id=offer.iditem)
+                ourGame = Game.objects.get(name=offer.game)
+                Server = ourGame.server_set.get(name=offer.server)
+                Item = Server.item_set.get(name=offer.item)
                 #calculate new offer limit
                 Item.offerLimit -= int(offer.itemQuantity)
+                #webhook discord
+                SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                 #save
                 Item.save()
                 offer.save()
@@ -216,6 +238,8 @@ def GetOffer(response,IDoffer):
                     offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                     offer.Status = 1
                     offer.save()
+                    #webhook discord
+                    SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                     #redirect for pervent resubmit on refresh
                     return redirect("/Supply/Offers")
                 #Change Status to Complete
@@ -223,6 +247,8 @@ def GetOffer(response,IDoffer):
                     offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                     offer.Status = 2
                     offer.save()
+                    #webhook discord
+                    SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                     #redirect for pervent resubmit on refresh
                     return redirect("/Supply/Offers")
                 #Change Status to Canceled
@@ -230,6 +256,8 @@ def GetOffer(response,IDoffer):
                     offer = OfferRequest.objects.get(id=int(response.POST.get("OfferId")))
                     offer.Status = 3
                     offer.save()
+                    #webhook discord
+                    SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                     #redirect for pervent resubmit on refresh
                     return redirect("/Supply/Offers")
                 #Change Status to Delivered
@@ -242,6 +270,8 @@ def GetOffer(response,IDoffer):
                     Item = Server.item_set.get(name=offer.item)
                     #calculate new offer limit
                     Item.offerLimit -= int(offer.itemQuantity)
+                    #webhook discord
+                    SendMessageToDiscord("**Status Changed**",f"User : {offer.NameUser}\nID : {offer.id}\nStatus : {IDconvertor(offer.Status)}")
                     #save
                     Item.save()
                     offer.save()
@@ -260,3 +290,28 @@ def GetOffer(response,IDoffer):
 def Logout(response):
     #logout
     logout(response)
+
+def SendMessageToDiscord(title,text):
+    import dhooks
+
+    Hook = dhooks.Webhook(Webhooklink)
+
+    embed = dhooks.Embed(
+    description=title,
+    color=0x5CDBF0,
+    timestamp="now"
+    )
+
+    embed.add_field(name="Info",value=text)
+
+    Hook.send(embed=embed)
+
+def IDconvertor(id):
+    if id == 1:
+        return "Pendig"
+    elif id == 2:
+        return "Complete"
+    elif id == 3:
+        return "Canceled"
+    elif id == 4:
+        return "Delivered"
