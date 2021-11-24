@@ -6,7 +6,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import logout
 from UserAuth.models import UserInfo
 
-Webhooklink = "Your weeb hook id"
+Webhooklink = "https://discord.com/api/webhooks/913123251377541130/LxIG67FaiqGV29slOrs_dP5MtCunG0ygC3eZXbGvMi0MId-nIL0V7HKMoxvQ97NbJzxe"
 
 # Create your views here.
 @login_required(login_url='/login/')
