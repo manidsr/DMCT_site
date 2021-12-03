@@ -6,16 +6,16 @@ class RegisterForm(UserCreationForm):
     username = forms.CharField(
         label="Username",
         strip=False,
-        widget=forms.TextInput(attrs={'autofocus': True,'placeholder': 'Username'}),
+        widget=forms.TextInput(attrs={'autofocus': True,'placeholder': ''}),
     )
     password1 = forms.CharField(
         label="Password",
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','placeholder': 'Password'}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','placeholder': ''}),
     )
     password2 = forms.CharField(
         label="Password confirmation",
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','placeholder': 'Confirmation Password'}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','placeholder': ''}),
         strip=False,
     )
     def Getuser(self):

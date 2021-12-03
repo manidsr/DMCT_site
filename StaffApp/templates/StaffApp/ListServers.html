@@ -1,9 +1,9 @@
 {% extends 'StaffApp/BaseMenu.html'%}
-{% block Title%}List Servers{% endblock %}
+{% block Title%}لیستت سرور ها{% endblock %}
 
 {% block Link %}
-    <a href="/Supply" style="color: #f8f9fa;">Supply / </a>
-    <a href="/Supply/{{gameName.id}}" style="pointer-events: none;color: #d9dbdd;" class="text-muted">{{gameName.name}} / </a>
+    <a href="/Supply" style="color: #f8f9fa;direction: rtl;">انبار / </a>
+    <a href="/Supply/{{gameName.id}}" style="pointer-events: none;color: #d9dbdd;direction: rtl;" class="text-muted">{{gameName.name}} / </a>
 {% endblock %}
 
 {% block TitleCont %}{{TitleContainer}}{% endblock %}
@@ -19,9 +19,9 @@
             <form method="POST" style="margin: 0 33.35%;">
                 {% csrf_token %}
                 <div class="input-group mb-3">
-                    <button class="btn btn-dark" type="submit" name="Delete" value="Delete">Delete</button>
+                    <button class="btn btn-dark" type="submit" name="Delete" value="Delete">پاک کردن</button>
                     <input type="text" class="form-control" placeholder="ID or Name" style="text-align: center;" name="IName">
-                    <button class="btn btn-dark" type="submit" name="Add" value="Add">Add</button>
+                    <button class="btn btn-dark" type="submit" name="Add" value="Add">اضافه کردن</button>
                 </div>
             </form>
         </div>

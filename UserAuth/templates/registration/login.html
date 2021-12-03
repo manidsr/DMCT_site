@@ -1,18 +1,18 @@
 {% extends 'UserAuth/BaseMenu.html'%}
 
 {% block contact %}
-    <div class="title">Login</div>
+    <div class="title" style="text-align: right;">ورود</div>
     <div class="content">
         <form method="POST">
             {% csrf_token %}
             <div class="user-details">
                 <div class="input-box">
-                    <span class="details">Username</span>
-                    {{form.username}}
+                    <span class="details" style="text-align: right;">رمز عبور</span>
+                    {{form.password}}
                 </div>
                 <div class="input-box">
-                    <span class="details">Password</span>
-                    {{form.password}}
+                    <span class="details" style="text-align: right;">نام کاربری</span>
+                    {{form.username}}
                 </div>
             </div>
             {% for error in form.username.errors %}
@@ -22,9 +22,9 @@
                 <p style="color: #DC3545;">{{error}}</p>
             {% endfor %}
             <div class="button">
-                <input class="btn btn-dark" type="submit" value="Login">
+                <input class="btn btn-dark" type="submit" value="ورود">
             </div>
-            <p>Don't have an account?<a href="/register" style="text-decoration: none;"> Register</a></p>
+            <p style="text-align: right;">اگر اکانت ندارید<a href="/register" style="text-decoration: none;"> ثبت نام </a></p>
         </form>
     </div>
 {% endblock %} 

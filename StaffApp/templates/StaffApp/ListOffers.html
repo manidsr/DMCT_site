@@ -1,24 +1,24 @@
 {% extends 'StaffApp/BaseMenu.html'%}
-{% block Title%}List Offers{% endblock %}
+{% block Title%}لیست سفارش ها{% endblock %}
 
 {% block Link %}
-    <a href="/Supply" style="color: #f8f9fa;">Supply / </a>
-    <a href="/Supply/Offers" style="pointer-events: none;color: #d9dbdd;" class="text-muted">Offers / </a>
+    <a href="/Supply" style="color: #f8f9fa;">انبار / </a>
+    <a href="/Supply/Offers" style="pointer-events: none;color: #d9dbdd;" class="text-muted">سفارش ها / </a>
 {% endblock %}
 
 {% block TitleCont%}
-Offers
+سفارش ها
 {% endblock %}
 {% block Contant %}
     <div style="margin: 0 40px;">
     <ul class="list-group list-group-horizontal justify-content-center ">
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">ID</li>
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Game-Server</li>
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Item</li>
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Quant</li>
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Price</li>
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">Name</li>
-        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">status</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">شماره سفارش</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">بازی/سروی</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">ایتم</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">مفدار</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">قیمت</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">نام</li>
+        <li class="list-group-item col list-group-item-light" style="text-align: center;padding: 10px 0;">وضعیت</li>
     </ul>
     {% if request.user.is_staff %}
         {% for Offer in Offerslist %}
@@ -31,15 +31,15 @@ Offers
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">Pending...
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">در حال پردازش
                         <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">در حال پردازش</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">پول تحویل داده شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">ایتم دریافت شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">لغو شد</button></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -53,15 +53,15 @@ Offers
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Complete
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">ایتم دریافت شد
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">در حال پردازش</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">پول تحویل داده شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">ایتم دریافت شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">لغو شد</button></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -75,15 +75,15 @@ Offers
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">Canceled
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">لغو شد
                         <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">در حال پردازش</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">پول تحویل داده شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">ایتم دریافت شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">لغو شد</button></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -97,15 +97,15 @@ Offers
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Delivered
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">پول تحویل داده شد
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">Pending</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">Delivered</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">Complete</button></a></li>
-                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">Canceled</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Pendig" value="Pendig" style="background: transparent;border: none;">در حال پردازش</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Delivered" value="Delivered" style="background: transparent;border: none;">پول تحویل داده شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Complete" value="Complete" style="background: transparent;border: none;">ایتم دریافت شد</button></a></li>
+                            <li><a class="dropdown-item" href="#"><button type="submit" name="Canceled" value="Canceled" style="background: transparent;border: none;">لغو شد</button></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -120,9 +120,9 @@ Offers
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">Pending...</li>
+                    <li class="list-group-item col list-group-item-warning" style="text-align: center;padding: 10px 0;">در حال پردازش</li>
                 </ul>
             {% elif Offer.Status == 2 %}
                 <ul class="list-group list-group-horizontal justify-content-center ">
@@ -130,9 +130,9 @@ Offers
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Complete</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">ایتم دریافت شد</li>
                 </ul>
             {% elif Offer.Status == 3 %}
                 <ul class="list-group list-group-horizontal justify-content-center ">
@@ -140,9 +140,9 @@ Offers
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">Complete</li>
+                    <li class="list-group-item col list-group-item-danger" style="text-align: center;padding: 10px 0;">لغو شد</li>
                 </ul>
             {% else %}
                 <ul class="list-group list-group-horizontal justify-content-center ">
@@ -150,9 +150,9 @@ Offers
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.game}}-{{Offer.server}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.item}}</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.itemQuantity}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}}$</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.finalPrice}} تومان</li>
                     <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">{{Offer.NameUser}}</li>
-                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">Delivered</li>
+                    <li class="list-group-item col list-group-item-success" style="text-align: center;padding: 10px 0;">پول تحویل داده شد</li>
                 </ul>
             {% endif %}
         {% endfor%}

@@ -2,7 +2,7 @@
 {% block Title%}List Items{% endblock %}
 
 {% block Link %}
-    <a href="/Supply" style="color: #f8f9fa;">Supply / </a>
+    <a href="/Supply" style="color: #f8f9fa;">انبار / </a>
     <a href="/Supply/{{gameName.id}}" style="color: #f8f9fa;">{{gameName.name}} / </a>
     <a href="/Supply/{{gameName.id}}/{{Server.id}}" style="pointer-events: none;color: #f8f9fa;" class="text-muted">{{Server.name}} / </a>
 {% endblock %}
@@ -10,12 +10,12 @@
 {% block Contant %}
 <div style="margin: 0 40px;">
     <ul class="list-group list-group-horizontal justify-content-center">
-        {% if request.user.is_staff %}<li class="list-group-item col" style="text-align: center;padding: 10px 0;">ID</li>{% endif %}
-        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Item</li>
-        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Price</li>
-        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Offer limit</li>
-        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Your offer</li>
-        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Payment</li>
+        {% if request.user.is_staff %}<li class="list-group-item col" style="text-align: center;padding: 10px 0;">شماره سفارش</li>{% endif %}
+        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">ایتم</li>
+        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">قیمت</li>
+        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">حداکثر سفارش</li>
+        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">مقدار سفارش شما</li>
+        <li class="list-group-item col" style="text-align: center;padding: 10px 0;">پول</li>
     </ul>
     <form method="POST">
         {% csrf_token %}
@@ -23,42 +23,42 @@
         <ul class="list-group list-group-horizontal justify-content-center">
             {% if request.user.is_staff %}<li class="list-group-item col" style="text-align: center;padding: 10px 0;">{{Game.id}}</li>{% endif %}
             <li class="list-group-item col" style="text-align: center;padding: 10px 0;">{{Game.name}}</li>
-            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Price{{Game.id}}">{{Game.price}}$</li>
+            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Price{{Game.id}}">{{Game.price}} تومان</li>
             <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="MaxOffer{{Game.id}}">{{Game.offerLimit}}</li>
             {% if Game.offerLimit > 0 %}
                 <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-5" name="input{{Game.id}}" onkeyup="GetPayment({{Game.id}})" onchange="GetPayment({{Game.id}})" onfocus="GetPayment({{Game.id}})" onkeydown="GetPayment({{Game.id}})" onblur="GetPayment({{Game.id}})"  type="number"></li>
             {% else %}
-            <li class="list-group-item col text-warning" style="text-align: center;padding: 10px 0;">not needed now</li>
+            <li class="list-group-item col text-warning" style="text-align: center;padding: 10px 0;">شفارشی موجود نیست</li>
             {% endif %}
-            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Payment{{Game.id}}">0.0$</li>
+            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Payment{{Game.id}}">0.0 تومان</li>
         </ul>
         {% endfor%}
-        <p style="margin-top: 20px;" class="fw-bold">Information</p>
+        <p style="margin-top: 20px;" class="fw-bold">اطلاعات</p>
         <div class="input-group" style="margin: 10px 0;">
-            <span class="input-group-text" id="basic-addon1">Character name : </span>
-            <input type="text" class="form-control" placeholder="Character name" name="CharacterN" required>
+            <span class="input-group-text" id="basic-addon1">اسم در بازی : </span>
+            <input type="text" class="form-control" placeholder="اسم در بازی" name="CharacterN" required>
         </div>
         <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">Note : </span>
-            <input type="text" class="form-control" placeholder="Note" name="Note">
+            <span class="input-group-text" id="basic-addon1">توضیح اضافی : </span>
+            <input type="text" class="form-control" placeholder="توضیح اضافی" name="Note">
         </div>
-        <button class="btn btn-dark col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 30px;" type="submit" name="submit" value="submit">Send Offer</button>
+        <button class="btn btn-dark col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 30px;" type="submit" name="submit" value="submit">ارسال سفارش</button>
         
     </form>
 
     {% if request.user.is_staff %}
 
     <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic example">
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom" >Add an item</button>
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2" aria-controls="offcanvasBottom">Delete an item</button>
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom3" aria-controls="offcanvasBottom">Change Limit an Item</button>
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom4" aria-controls="offcanvasBottom">Change Price an Item</button>
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom">اضافه کردن یک ایتم</button>
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2" aria-controls="offcanvasBottom">پاک کردن یک ایتم</button>
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom3" aria-controls="offcanvasBottom">عوض کردن حداکثر سفارش بک ایتم</button>
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom4" aria-controls="offcanvasBottom">عوض کردن قیمت یک ایتم</button>
     </div>
 
 
     <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1" aria-labelledby="offcanvasBottomLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Add an item</h5>
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel" style="text-align:center;width: 100%;">اضافه کردن یک ایتم</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body small">
@@ -66,16 +66,16 @@
         <form method="POST">
             {% csrf_token %}
             <ul class="list-group list-group-horizontal justify-content-center" style="margin-top: 50px;">
-                <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Item</li>
-                <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Price</li>
-                <li class="list-group-item col" style="text-align: center;padding: 10px 0;">Offer limit</li>
+                <li class="list-group-item col" style="text-align: center;padding: 10px 0;">ابتم</li>
+                <li class="list-group-item col" style="text-align: center;padding: 10px 0;">قیمت</li>
+                <li class="list-group-item col" style="text-align: center;padding: 10px 0;">حداکثر سفارش</li>
             </ul>
             <ul class="list-group list-group-horizontal justify-content-center">
                 <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-7" type="text" name="Name"></li>
                 <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-7" type="text" name="Price"></li>
                 <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-7" type="text" name="OfferLimit"></li>
             </ul>
-            <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="Add" value="Add">Add</button>
+            <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="Add" value="Add">اضافه کردن</button>
         </form>
 
       </div>
@@ -83,7 +83,7 @@
 
     <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasBottomLabel">Delete an item</h5>
+          <h5 class="offcanvas-title" id="offcanvasBottomLabel" style="text-align:center;width: 100%;">پاک کردن یک ایتم</h5>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body small">
@@ -91,12 +91,12 @@
             <form method="POST">
                 {% csrf_token %}
                 <ul class="list-group list-group-horizontal justify-content-center" style="margin-top: 50px;">
-                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">ID</li>
+                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">شماره سفارش</li>
                 </ul>
                 <ul class="list-group list-group-horizontal justify-content-center">
                     <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-3" type="text" name="DeleteId"></li>
                 </ul>
-                <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="Delete" value="Delete">Delete</button>
+                <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="Delete" value="Delete">پاک کردن</button>
             </form>
   
         </div>
@@ -104,7 +104,7 @@
 
     <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom3" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Change limit an item</h5>
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel" style="text-align:center;width: 100%";>عوض کردن حداکثر یک ایتم</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body small">
@@ -112,14 +112,14 @@
             <form method="POST">
                 {% csrf_token %}
                 <ul class="list-group list-group-horizontal justify-content-center" style="margin-top: 50px;">
-                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">ID</li>
-                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">New Limit</li>
+                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">شماره سفارش</li>
+                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">حداکثر سفارش جدید</li>
                 </ul>
                 <ul class="list-group list-group-horizontal justify-content-center">
                     <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-3" type="text" name="changeLimitId"></li>
                     <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-3" type="text" name="newItemLimit"></li>
                 </ul>
-                <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="changeLimit" value="changeLimit">Change offer limit an item</button>
+                <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="changeLimit" value="changeLimit">عوض کردن حداکثر</button>
             </form>
 
         </div>
@@ -127,7 +127,7 @@
 
     <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom4" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Change price an item</h5>
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel" style="text-align:center;width: 100%;">عوض کردن قیمت یک ایتم</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body small">
@@ -135,14 +135,14 @@
             <form method="POST">
                 {% csrf_token %}
                 <ul class="list-group list-group-horizontal justify-content-center" style="margin-top: 50px;">
-                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">ID</li>
-                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">New Price</li>
+                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">شماره سفارش</li>
+                    <li class="list-group-item col" style="text-align: center;padding: 10px 0;">قیمت جدید</li>
                 </ul>
                 <ul class="list-group list-group-horizontal justify-content-center">
                     <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-3" type="text" name="changePriceId"></li>
                     <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-3" type="text" name="newItemPrice"></li>
                 </ul>
-                <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="changePrice" value="changePrice">Change offer limit an item</button>
+                <button type="submit" class="btn btn-dark  col-12 col-lg-3 col-md-4" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 10px;" name="changePrice" value="changePrice">عوض کردن قیمت</button>
             </form>
 
         </div>

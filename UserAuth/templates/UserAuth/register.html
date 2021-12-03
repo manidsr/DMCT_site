@@ -1,23 +1,23 @@
 {% extends 'UserAuth/BaseMenu.html'%}
 
 {% block contact %}
-    <div class="title">Registration</div>
+    <div class="title" style="text-align: right;">ثبت نام</div>
     <div class="content">
         <form method="POST">
             {% csrf_token %}
             <div class="user-details">
-                <div class="input-box">
-                    <span class="details">Username</span>
-                    {{form.username}}
-                </div>
                 <div class="input-box"></div>
                 <div class="input-box">
-                    <span class="details">Password</span>
-                    {{form.password1}}
+                    <span class="details" style="text-align: right;">: نام کاربری</span>
+                    {{form.username}}
                 </div>
                 <div class="input-box">
-                    <span class="details">Confirm Password</span>
+                    <span class="details" style="text-align: right;">: تکرار رمز عبور</span>
                     {{form.password2}}
+                </div>
+                <div class="input-box" style="text-align: right;">
+                    <span class="details">: رمز عبور</span>
+                    {{form.password1}}
                 </div>
             </div>
             {% for error in form.username.errors %}
@@ -27,9 +27,9 @@
                 <p style="color: #DC3545;">{{error}}</p>
             {% endfor %}
             <div class="button">
-                <input class="btn btn-dark" type="submit" value="Register">
+                <input class="btn btn-dark" type="submit" value="ثبت نام">
             </div>
-            <p>Already have an account?<a href="/login" style="text-decoration: none;"> Login</a></p>
+            <p style="text-decoration: rtl;text-align: right;"> اگر یک حساب کاربری داردید<a href="/login" style="text-decoration: none;"> ورود </a></p>
         </form>
     </div>
 {% endblock %} 

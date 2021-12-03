@@ -29,12 +29,12 @@ def GetGames(response):
                 game = Game.objects.create(name=str(response.POST.get("IName")))
                 game.save()
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply",{"GameList":GameList,"TitleContainer":"Select Your Game"})
+                return redirect(f"/Supply",{"GameList":GameList,"TitleContainer":"بازی خود را انتخاب کنید"})
     except:
         #if anything happened redirect to main page
         return redirect(f"/Supply")
     #render
-    return render(response,"StaffApp/ListGames.html",{"GameList":GameList,"TitleContainer":"Select Your Game"})
+    return render(response,"StaffApp/ListGames.html",{"GameList":GameList,"TitleContainer":"بازی خود را انتخاب کنید"})
 
 @login_required(login_url='/login/')
 def GetServers(response,IDGame):
@@ -50,19 +50,19 @@ def GetServers(response,IDGame):
                 game = ourGame.server_set.get(id=int(response.POST.get("IName")))
                 game.delete()
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply/{IDGame}",{"GameList":Servers,"TitleContainer":"Select Your Server","gameName":ourGame})
+                return redirect(f"/Supply/{IDGame}",{"GameList":Servers,"TitleContainer":"سرور خود را انتخاب کنید","gameName":ourGame})
             #Add Server
             elif response.POST.get("Add"):
                 #Get name for creating new server
                 game = ourGame.server_set.create(name=str(response.POST.get("IName")))
                 game.save()
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply/{IDGame}",{"GameList":Servers,"TitleContainer":"Select Your Server","gameName":ourGame})
+                return redirect(f"/Supply/{IDGame}",{"GameList":Servers,"TitleContainer":"سرور خود را انتخاب کنید","gameName":ourGame})
     except:
         #if anything happened redirect to main page
         return redirect(f"/Supply/")
     #render
-    return render(response,"StaffApp/ListServers.html",{"GameList":Servers,"TitleContainer":"Select Your Server","gameName":ourGame})
+    return render(response,"StaffApp/ListServers.html",{"GameList":Servers,"TitleContainer":"سرور خود را انتخاب کنید","gameName":ourGame})
 
 @login_required(login_url='/login/')
 def GetItems(response,IDGame,IDServer):
@@ -125,7 +125,7 @@ def GetItems(response,IDGame,IDServer):
                 #webhook discord
                 SendMessageToDiscord("**Added an new item**",f"Name : {name}\nPrice Item : {PriceItem}$\nOffer limit : {OfferLimit}")
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"Select Your Items","gameName":ourGame,"Server":Server})
+                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"ایتم خود را انتخاب کنید","gameName":ourGame,"Server":Server})
             #Delete item from list
             elif response.POST.get("Delete"):
                 #Get id form input
@@ -135,7 +135,7 @@ def GetItems(response,IDGame,IDServer):
                 #delete
                 item.delete()
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"Select Your Items","gameName":ourGame,"Server":Server})
+                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"ایتم خود را انتخاب کنید","gameName":ourGame,"Server":Server})
             #Change offer limit an item
             elif response.POST.get("changeLimit"):
                 #get id and new offer limit
@@ -147,7 +147,7 @@ def GetItems(response,IDGame,IDServer):
                 #save
                 item.save()
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"Select Your Items","gameName":ourGame,"Server":Server})
+                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"ایتم خود را انتخاب کنید","gameName":ourGame,"Server":Server})
             #Chage offer price an item 
             elif response.POST.get("changePrice"):
                 #Get id and new price from inputs
@@ -158,12 +158,12 @@ def GetItems(response,IDGame,IDServer):
                 #save
                 item.save()
                 #redirect for pervent resubmit on refresh
-                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"Select Your Items","gameName":ourGame,"Server":Server})
+                return redirect(f"/Supply/{IDGame}/{IDServer}",{"GameList":Items,"TitleContainer":"ایتم خود را انتخاب کنید","gameName":ourGame,"Server":Server})
     except:
         #if anything happened redirect to main page
         return redirect(f"/Supply/{IDGame}/")
     #render
-    return render(response,"StaffApp/ListItems.html",{"GameList":Items,"TitleContainer":"Select Your Items","gameName":ourGame,"Server":Server})
+    return render(response,"StaffApp/ListItems.html",{"GameList":Items,"TitleContainer":"ایتم خود را انتخاب کنید","gameName":ourGame,"Server":Server})
 
 @login_required(login_url='/login/')
 def GetOffers(response):
