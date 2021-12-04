@@ -75,7 +75,7 @@
     <script>
         function GetPayment(Id){
             if (document.activeElement.value <= parseInt(document.getElementById("MaxOffer"+Id).innerHTML)) {
-                document.getElementById("Payment"+Id).innerHTML = (document.activeElement.value * parseFloat(document.getElementById("Price"+Id).innerHTML)).toFixed(0) + " هزار تومان";
+                document.getElementById("Payment"+Id).innerHTML = (document.activeElement.value * parseFloat(document.getElementById("Price"+Id).innerHTML)).toFixed(0) +" تومان ";
             }
             if (document.activeElement.value > parseInt(document.getElementById("MaxOffer"+Id).innerHTML)) {
                 document.activeElement.value = parseInt(document.getElementById("MaxOffer"+Id).innerHTML)
