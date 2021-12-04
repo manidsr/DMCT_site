@@ -5,36 +5,36 @@
     <a style="pointer-events: none;color: #f8f9fa;" class="text-muted">تنظیمات کاربر / </a>
 {% endblock %}
 
-{% block TitleCont %}اطلاعات کاربر{% endblock %}
+{% block TitleCont %}تنظیمات کاربر{% endblock %}
 
 {% block Contant %}
     <form method="POST" style="margin: 0 40px;">
             {% csrf_token %}
             <p style="direction: rtl;">اطلاعات کاربر</p><hr>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="FullName" name="fullname" value="{{Info.fullname}}" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="fullname" value="{{Info.fullname}}" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: نام و نام خانوادگی</span>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="PhoneNumber" name="phonenumber" value="{{Info.phonenumber}}" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="شماره تلفن" name="phonenumber" value="{{Info.phonenumber}}" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: شماره تلفن</span>
             </div>
             <p style="direction: rtl;">اطلاعات کاربر برای سفارش</p><hr>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="ID Discord" name="idDiscord" value="{{Info.IDDiscord}}" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="ایدی دیسکورد" name="idDiscord" value="{{Info.IDDiscord}}" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: ایدی دیسکورد</span>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Email" name="email" value="{{Info.email}}" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="ایمیل" name="email" value="{{Info.email}}" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: ایمیل</span>
             </div>
             <p style="direction: rtl;">اطلاعات حساب بانکی</p><hr>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Bank ID" name="bankid" id="bankid" value="{{Info.bankId}}" maxlength="19" minlength="19" onkeyup="CheckForBankID()" onchange="CheckForBankID()" onfocus="CheckForBankID()" onkeydown="CheckForBankID()" onblur="CheckForBankID()" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="شماره حساب" name="bankid" id="bankid" value="{{Info.bankId}}" maxlength="19" minlength="19" onkeyup="CheckForBankID()" onchange="CheckForBankID()" onfocus="CheckForBankID()" onkeydown="CheckForBankID()" onblur="CheckForBankID()" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: شماره حساب</span>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Name Owner Bank ID" name="bankIdOwner" value="{{Info.bankIdOwner}}" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="نام صاحب کارت بانکی" name="bankIdOwner" value="{{Info.bankIdOwner}}" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: نام صاحب کارت بانکی</span>
             </div>
             <button type="submit" class="btn btn-dark col-5" style="position:relative; left: 50%; transform: translateX(-50%);margin-top: 30px;" name="Save" value="Save">ذخیره</button>
