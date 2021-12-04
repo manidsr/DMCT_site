@@ -19,7 +19,7 @@ class Server(models.Model):
 class Item(models.Model):
     Server = models.ForeignKey(Server,on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    price = models.FloatField()
+    price = models.IntegerField()
     offerLimit = models.IntegerField(default=0)
 
     def __str__(self):

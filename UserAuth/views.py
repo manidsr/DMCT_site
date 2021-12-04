@@ -65,7 +65,7 @@ def UserProfileSetting(response):
             #butten save was clicked text
             Saved = "Saved"
             #redirect for pervent resubmit on refresh
-            return redirect("/Profile",{"Info":Info,"Saved":Saved})
+            return redirect("/Supply")
     #render
     return render(response,"UserAuth/ProfileSetting.html",{"Info":Info,"Saved":Saved})
 

@@ -30,7 +30,7 @@
             </div>
             <p style="direction: rtl;">اطلاعات حساب بانکی</p><hr>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="شماره حساب" name="bankid" id="bankid" value="{{Info.bankId}}" maxlength="19" minlength="19" onkeyup="CheckForBankID()" onchange="CheckForBankID()" onfocus="CheckForBankID()" onkeydown="CheckForBankID()" onblur="CheckForBankID()" style="direction: rtl;">
+                <input type="text" class="form-control" placeholder="شماره حساب" name="bankid" id="bankid" value="{{Info.bankId}}" maxlength="16" minlength="16" style="direction: rtl;">
                 <span class="input-group-text" id="basic-addon1">: شماره حساب</span>
             </div>
             <div class="input-group mb-3">
@@ -44,14 +44,4 @@
             </div>
             {% endif %}
     </form>
-
-    <script>
-        function CheckForBankID(){
-        var value = document.getElementById('bankid').value
-        value = value.replace("","-")
-        if(value.length % 5 == 0 && value.length != 20){
-            document.getElementById('bankid').value = document.getElementById('bankid').value + "-"
-        }
-      }
-    </script>
 {% endblock %}

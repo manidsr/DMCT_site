@@ -23,14 +23,14 @@
         <ul class="list-group list-group-horizontal justify-content-center">
             {% if request.user.is_staff %}<li class="list-group-item col" style="text-align: center;padding: 10px 0;">{{Game.id}}</li>{% endif %}
             <li class="list-group-item col" style="text-align: center;padding: 10px 0;">{{Game.name}}</li>
-            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Price{{Game.id}}">{{Game.price}} تومان</li>
+            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Price{{Game.id}}">{{Game.price}} هزار تومان</li>
             <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="MaxOffer{{Game.id}}">{{Game.offerLimit}}</li>
             {% if Game.offerLimit > 0 %}
                 <li class="list-group-item col" style="text-align: center;padding: 10px 0;"><input class="col-5" name="input{{Game.id}}" onkeyup="GetPayment({{Game.id}})" onchange="GetPayment({{Game.id}})" onfocus="GetPayment({{Game.id}})" onkeydown="GetPayment({{Game.id}})" onblur="GetPayment({{Game.id}})"  type="number"></li>
             {% else %}
             <li class="list-group-item col text-warning" style="text-align: center;padding: 10px 0;">شفارشی موجود نیست</li>
             {% endif %}
-            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Payment{{Game.id}}">0.0 تومان</li>
+            <li class="list-group-item col" style="text-align: center;padding: 10px 0;" id="Payment{{Game.id}}">هزار تومان</li>
         </ul>
         {% endfor%}
         <p style="margin-top: 20px;text-align: right;" class="fw-bold">اطلاعات</p>
